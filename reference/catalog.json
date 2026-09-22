@@ -1,0 +1,179 @@
+{
+  "version": "2026-09",
+  "fragilityRules": {
+    "1": {
+      "level": 1,
+      "label": "常规器",
+      "temperatureRangeC": { "min": 10, "max": 30 },
+      "humidityRangeRh": { "min": 30, "max": 70 },
+      "requiredPhotoKinds": ["封签照片"],
+      "packingChecks": [
+        "外箱无破损、无变形、无受潮痕迹",
+        "封签编号一致且封签牢固",
+        "箱内无异常响动",
+        "重心标识与朝上标识清晰"
+      ]
+    },
+    "2": {
+      "level": 2,
+      "label": "易碎器",
+      "temperatureRangeC": { "min": 15, "max": 25 },
+      "humidityRangeRh": { "min": 35, "max": 65 },
+      "requiredPhotoKinds": ["封签照片", "箱体照片"],
+      "packingChecks": [
+        "外箱无破损、无变形、无受潮痕迹",
+        "封签编号一致且封签牢固",
+        "缓冲材料包覆完整无移位",
+        "倾斜指示器已安装且未触发",
+        "箱内无异常响动",
+        "重心标识与朝上标识清晰"
+      ]
+    },
+    "3": {
+      "level": 3,
+      "label": "贵重器",
+      "temperatureRangeC": { "min": 18, "max": 22 },
+      "humidityRangeRh": { "min": 45, "max": 55 },
+      "requiredPhotoKinds": ["封签照片", "箱体照片", "交接现场照片"],
+      "packingChecks": [
+        "外箱无破损、无变形、无受潮痕迹",
+        "封签编号一致且封签牢固",
+        "定制缓冲内衬与器物轮廓贴合",
+        "冲击指示器、倾斜指示器已安装且未触发",
+        "箱内温湿度记录仪已开启并读数正常",
+        "防震底座与车厢固定点已锁紧",
+        "箱内无异常响动",
+        "随箱单证与交接单齐全"
+      ]
+    },
+    "4": {
+      "level": 4,
+      "label": "极脆弱器",
+      "temperatureRangeC": { "min": 18, "max": 22 },
+      "humidityRangeRh": { "min": 45, "max": 55 },
+      "requiredPhotoKinds": ["封签照片", "箱体照片", "交接现场照片", "缓冲材料照片", "指示器读数照片"],
+      "packingChecks": [
+        "外箱无破损、无变形、无受潮痕迹",
+        "封签编号一致且封签牢固（双人核对）",
+        "定制缓冲内衬与器物轮廓贴合，缓冲厚度符合规范",
+        "冲击指示器、倾斜指示器已安装且读数留证",
+        "箱内温湿度记录仪已开启并读数正常",
+        "气垫防震底座与车厢固定点已锁紧",
+        "外箱与车厢间无窜动间隙",
+        "箱内无异常响动",
+        "随箱单证、保险单与交接单齐全",
+        "装箱过程影像记录完整"
+      ]
+    }
+  },
+  "vehicleCapabilities": [
+    {
+      "type": "恒温气垫车",
+      "mode": "陆运",
+      "maxFragility": 4,
+      "features": ["恒温", "恒湿", "气垫减震", "避震悬挂"],
+      "description": "适用极脆弱器干线陆运"
+    },
+    {
+      "type": "标准减震恒温车",
+      "mode": "陆运",
+      "maxFragility": 3,
+      "features": ["恒温", "弹簧减震"],
+      "description": "适用贵重器及以下陆运"
+    },
+    {
+      "type": "普通厢式车",
+      "mode": "陆运",
+      "maxFragility": 1,
+      "features": [],
+      "description": "仅限常规器短驳"
+    },
+    {
+      "type": "温控航空ULD舱",
+      "mode": "空运",
+      "maxFragility": 4,
+      "features": ["恒温", "恒湿", "固定卡扣"],
+      "description": "国际航段温控集装器"
+    }
+  ],
+  "routeTemplates": [
+    {
+      "id": "xian-overseas-2026",
+      "name": "西安至海外展馆国际借展线",
+      "nodes": [
+        {
+          "seq": 0,
+          "code": "SIA-WH",
+          "name": "西安博物院库房装箱月台",
+          "owner": "出库责任人",
+          "timezone": "Asia/Shanghai",
+          "windowStart": "2026-09-23T08:00:00+08:00",
+          "windowEnd": "2026-09-23T10:00:00+08:00",
+          "dwellMinutes": 120
+        },
+        {
+          "seq": 1,
+          "code": "XIY-ICD",
+          "name": "西安咸阳国际机场国际货站",
+          "owner": "航空货站",
+          "timezone": "Asia/Shanghai",
+          "windowStart": "2026-09-23T13:00:00+08:00",
+          "windowEnd": "2026-09-23T16:00:00+08:00",
+          "dwellMinutes": 120
+        },
+        {
+          "seq": 2,
+          "code": "XIY-AIR",
+          "name": "出港航班舱位交接",
+          "owner": "航空公司",
+          "timezone": "Asia/Shanghai",
+          "windowStart": "2026-09-23T19:30:00+08:00",
+          "windowEnd": "2026-09-23T21:00:00+08:00",
+          "dwellMinutes": 60
+        },
+        {
+          "seq": 3,
+          "code": "FRA-CARGO",
+          "name": "法兰克福机场国际货站",
+          "owner": "境外货站",
+          "timezone": "Europe/Berlin",
+          "windowStart": "2026-09-24T06:00:00+02:00",
+          "windowEnd": "2026-09-24T09:00:00+02:00",
+          "dwellMinutes": 120
+        },
+        {
+          "seq": 4,
+          "code": "MUSEUM-DOCK",
+          "name": "海外展馆卸货平台",
+          "owner": "接展场馆",
+          "timezone": "Europe/Berlin",
+          "windowStart": "2026-09-24T11:00:00+02:00",
+          "windowEnd": "2026-09-24T13:00:00+02:00",
+          "dwellMinutes": 120
+        }
+      ]
+    }
+  ],
+  "handoffForm": {
+    "title": "文物运输交接单（样例）",
+    "fields": [
+      { "key": "formNo", "label": "交接单号", "required": true },
+      { "key": "shipmentId", "label": "运输链编号", "required": true },
+      { "key": "nodeSeq", "label": "路线节点序号", "required": true },
+      { "key": "occurredAt", "label": "交接发生时间（带时区 ISO 8601）", "required": true },
+      { "key": "location", "label": "交接地点", "required": true },
+      { "key": "sealId", "label": "封签编号及完好状态", "required": true },
+      { "key": "checks", "label": "按脆弱等级生成的包装检查项及结果", "required": true },
+      { "key": "temperatureC", "label": "箱内温度(℃)", "required": true },
+      { "key": "humidityRh", "label": "箱内相对湿度(%RH)", "required": true },
+      { "key": "shockTriggered", "label": "冲击指示器是否触发", "required": true },
+      { "key": "tiltTriggered", "label": "倾斜指示器是否触发", "required": true },
+      { "key": "sensorOffline", "label": "冲击传感器是否离线", "required": true },
+      { "key": "photos", "label": "随单照片编号（按规范种类）", "required": true },
+      { "key": "carrierSignature", "label": "承运人签名（姓名/工号/单位）", "required": true },
+      { "key": "actor", "label": "接收/记录责任人", "required": true },
+      { "key": "anomalies", "label": "异常记录与处置单号", "required": false },
+      { "key": "remark", "label": "备注", "required": false }
+    ]
+  }
+}

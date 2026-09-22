@@ -1,13 +1,27 @@
-import { createServer } from "node:http";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+import { readFileSync } from "node:fs";
+import { EventStore } from "./store.js";
+import { ShippingEngine } from "./domain.js";
+import { createApiServer } from "./http.js";
 
-export function createApp() {
-  return createServer((request, response) => {
-    if (request.method === "GET" && request.url === "/health") {
-      response.writeHead(200, { "content-type": "application/json; charset=utf-8" });
-      response.end(JSON.stringify({ status: "ok", service: "heritage-service-starter" }));
-      return;
-    }
-    response.writeHead(404, { "content-type": "application/json; charset=utf-8" });
-    response.end(JSON.stringify({ error: "not_found" }));
-  });
+const here = dirname(fileURLToPath(import.meta.url));
+
+export function loadCatalog() {
+  return JSON.parse(readFileSync(join(here, "..", "reference", "catalog.json"), "utf8"));
+}
+
+export function createApp(options = {}) {
+  const catalog = options.catalog ?? loadCatalog();
+  const dataDir = options.dataDir ?? process.env.DATA_DIR ?? join(here, "..", ".data");
+  const store = new EventStore(dataDir);
+  const engine = new ShippingEngine(store, catalog, { now: options.now });
+  const server = createApiServer(engine, catalog);
+
+  // 超时提醒落为事件：重启后立即重扫一次，冻结与提醒状态随重放恢复。
+  engine.scanOverdue();
+  const scanInterval = setInterval(() => engine.scanOverdue(), Number(process.env.SCAN_INTERVAL_MS ?? 60_000));
+  scanInterval.unref?.();
+
+  return server;
 }
