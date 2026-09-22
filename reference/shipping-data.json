@@ -1,0 +1,152 @@
+{
+  "timezone": "Asia/Shanghai",
+  "recordIdExample": "artifact-0001",
+  "roles": ["管理员", "运输协调员", "保护人员", "押运员", "承运人", "只读访客"],
+  "authorizedDualRoles": ["管理员", "保护人员", "押运员"],
+  "fragilityLevels": {
+    "L1": {
+      "code": "L1",
+      "name": "一级（极高风险）",
+      "description": "极脆弱器物，如素胎彩陶、出土彩绘壁画、薄壁瓷器",
+      "temperatureRangeC": { "min": 18, "max": 22 },
+      "humidityRangePct": { "min": 50, "max": 60 },
+      "requiredCapabilities": ["空气悬架", "恒温恒湿", "防震底盘", "实时定位"],
+      "checklist": [
+        { "itemId": "outer-crate", "label": "外箱完好性检查（无开裂、无穿刺、无受潮）" },
+        { "itemId": "cushion", "label": "缓冲材料状态检查（定制内衬无位移、无压实）" },
+        { "itemId": "seal", "label": "封签号码核对并拍照留档" },
+        { "itemId": "temperature", "label": "箱内温度记录并比对限值" },
+        { "itemId": "humidity", "label": "箱内湿度记录并比对限值" },
+        { "itemId": "tilt-indicator", "label": "倾倒指示器读数（未触发）" },
+        { "itemId": "shock-indicator", "label": "冲击指示器读数（未超过阈值）" },
+        { "itemId": "handoff-photos", "label": "多角度交接照片不少于6张" }
+      ]
+    },
+    "L2": {
+      "code": "L2",
+      "name": "二级（高风险）",
+      "description": "脆弱器物，如三彩器、釉陶、有旧伤修复件",
+      "temperatureRangeC": { "min": 15, "max": 24 },
+      "humidityRangePct": { "min": 45, "max": 65 },
+      "requiredCapabilities": ["空气悬架", "恒温", "实时定位"],
+      "checklist": [
+        { "itemId": "outer-crate", "label": "外箱完好性检查" },
+        { "itemId": "seal", "label": "封签号码核对并拍照留档" },
+        { "itemId": "temperature", "label": "箱内温度记录并比对限值" },
+        { "itemId": "humidity", "label": "箱内湿度记录并比对限值" },
+        { "itemId": "shock-indicator", "label": "冲击指示器读数（未超过阈值）" },
+        { "itemId": "handoff-photos", "label": "多角度交接照片不少于4张" }
+      ]
+    },
+    "L3": {
+      "code": "L3",
+      "name": "三级（中等风险）",
+      "description": "较结实器物，如粗陶、石刻小件、金属器",
+      "temperatureRangeC": { "min": 10, "max": 28 },
+      "humidityRangePct": { "min": 35, "max": 70 },
+      "requiredCapabilities": ["防震底盘", "实时定位"],
+      "checklist": [
+        { "itemId": "outer-crate", "label": "外箱完好性检查" },
+        { "itemId": "seal", "label": "封签号码核对" },
+        { "itemId": "temperature", "label": "箱内温度记录" },
+        { "itemId": "handoff-photos", "label": "交接照片不少于2张" }
+      ]
+    }
+  },
+  "vehicles": [
+    {
+      "vehicleId": "SN-XA-001",
+      "plate": "陕A·WW001",
+      "name": "西安本院气垫恒温恒湿车",
+      "capabilities": ["空气悬架", "恒温", "恒温恒湿", "防震底盘", "实时定位"],
+      "temperatureRangeC": { "min": 15, "max": 25 }
+    },
+    {
+      "vehicleId": "SN-XA-014",
+      "plate": "陕A·BH014",
+      "name": "西安普通防震运输车",
+      "capabilities": ["防震底盘", "实时定位"],
+      "temperatureRangeC": null
+    },
+    {
+      "vehicleId": "AIR-MU201",
+      "plate": "MU201",
+      "name": "东航 MU201 全货机温控舱",
+      "capabilities": ["恒温", "实时定位"],
+      "temperatureRangeC": { "min": 16, "max": 24 }
+    },
+    {
+      "vehicleId": "SN-BER-007",
+      "plate": "B·WW7788",
+      "name": "柏林接展气垫恒温车",
+      "capabilities": ["空气悬架", "恒温", "恒温恒湿", "防震底盘", "实时定位"],
+      "temperatureRangeC": { "min": 15, "max": 25 }
+    }
+  ],
+  "routes": [
+    {
+      "routeId": "xian-to-berlin-2026-09",
+      "name": "西安—柏林海外展运输链",
+      "nodes": [
+        {
+          "nodeId": "n1-origin",
+          "name": "西安博物院文物库房装箱月台",
+          "kind": "origin",
+          "timezone": "Asia/Shanghai",
+          "windowStart": "2026-09-23T08:00:00+08:00",
+          "windowEnd": "2026-09-23T10:00:00+08:00",
+          "address": "中国陕西省西安市碑林区"
+        },
+        {
+          "nodeId": "n2-xian-airport",
+          "name": "西安咸阳国际机场国际货站",
+          "kind": "transit",
+          "timezone": "Asia/Shanghai",
+          "windowStart": "2026-09-23T12:00:00+08:00",
+          "windowEnd": "2026-09-23T14:00:00+08:00",
+          "address": "中国陕西省咸阳市渭城区"
+        },
+        {
+          "nodeId": "n3-fra-airport",
+          "name": "法兰克福机场国际货站中转区",
+          "kind": "transit",
+          "timezone": "Europe/Berlin",
+          "windowStart": "2026-09-23T22:30:00+02:00",
+          "windowEnd": "2026-09-23T23:30:00+02:00",
+          "address": "德国法兰克福 am Main"
+        },
+        {
+          "nodeId": "n4-venue",
+          "name": "柏林博物馆岛临时展厅卸货口",
+          "kind": "destination",
+          "timezone": "Europe/Berlin",
+          "windowStart": "2026-09-24T09:00:00+02:00",
+          "windowEnd": "2026-09-24T11:00:00+02:00",
+          "address": "德国柏林米特区"
+        }
+      ]
+    }
+  ],
+  "handoffTemplate": {
+    "title": "文物运输交接单",
+    "fields": [
+      { "key": "handoffNo", "label": "交接单号" },
+      { "key": "shipmentId", "label": "运输链编号" },
+      { "key": "artifactName", "label": "器物名称" },
+      { "key": "fragilityLevel", "label": "脆弱等级" },
+      { "key": "nodeName", "label": "交接节点" },
+      { "key": "scheduledWindow", "label": "预约时间窗（当地时间）" },
+      { "key": "eventTime", "label": "实际交接时间（统一事件时间）" },
+      { "key": "sealId", "label": "封签号码" },
+      { "key": "sealStatus", "label": "封签状态" },
+      { "key": "temperatureC", "label": "箱内温度(℃)" },
+      { "key": "humidityPct", "label": "箱内湿度(%)" },
+      { "key": "inspectionResults", "label": "包装检查项结果" },
+      { "key": "carrierName", "label": "承运人签名" },
+      { "key": "carrierId", "label": "承运人工号" },
+      { "key": "dualConfirmations", "label": "换车/拆箱双人确认" },
+      { "key": "openAnomalies", "label": "未解决异常" },
+      { "key": "evidence", "label": "随附证据（照片/传感器日志）" }
+    ]
+  }
+}
